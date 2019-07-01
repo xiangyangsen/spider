@@ -16,21 +16,21 @@ header = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image
                }
 
 
+#获取文章详情
 def get_garp(url):
-    # mark ="'"
-    # new_url = mark+url+mark
     wb_data = requests.get(url)
     soup = BeautifulSoup(wb_data.text, 'lxml')
     art = soup.find(class_="grap").get_text().strip()
-    time.sleep(1)
+    time.sleep(1) 
     return art
 
+#打开文件并开始爬取人人都是产品经理最新文章数据
 with open(r'/Users/flu/Downloads/woshipm1.csv', 'w', encoding='utf-8',newline='') as csvfile:
     fieldnames = ['article_id', 'title', 'author', 'author_id', 'permalink', 'view', 'like', 'bookmark','date', 'garp']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
 
-    for page_num in range(1,10):
+    for page_num in range(1,10):  #爬取页数设置
 
         page_url = 'http://www.woshipm.com/__api/v1/stream-list/page/{}'.format(page_num)
         print('正在抓取第'+str(page_num)+'页')
@@ -64,5 +64,5 @@ with open(r'/Users/flu/Downloads/woshipm1.csv', 'w', encoding='utf-8',newline=''
                              'garp': garp})
 
 
-        time.sleep(2)
+        time.sleep(2) 
 
