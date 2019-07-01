@@ -17,13 +17,13 @@ from mpl_toolkits.mplot3d import Axes3D
 
 
 
-
+#清洗数据，转换PV过万的数据
 def view_to_num(item):
-    m = re.search('.*?(万)',item['view'])
-    if m:
+    m = re.search('.*?(万)',item['view'])#找到PV过万的数据
+    if m:    #进行数据修正
         ns = item['view'][:-1]
         nss = Decimal(ns)*10000
-    else:
+    else:    #不处理
         nss = item['view']
     return int(nss)
 
